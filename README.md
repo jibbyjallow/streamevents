@@ -80,23 +80,22 @@ http://127.0.0.1:8000/admin
 # Crear superusuari
 python manage.py createsuperuser
 
-## 💾 Fixtures (exemple)
+# 💾 Fixtures (exemple)
 
-# Primer, carrega els grups
+## Primer, carrega els grups
 python manage.py loaddata users/fixtures/01_groups.json
 
-# Després, carrega els usuaris
+## Després, carrega els usuaris
 python manage.py loaddata users/fixtures/02_users.json
 
-# També es poden carregar totes a la vegada
+## També es poden carregar totes a la vegada
 python manage.py loaddata users/fixtures/*.json
 
-# Comprovar grups
+## Comprovar grups
 python manage.py shell -c "from django.contrib.auth.models import Group; print(Group.objects.all())"
 
-# Comprovar usuaris
+## Comprovar usuaris
 python manage.py shell -c "from django.contrib.auth import get_user_model; User = get_user_model(); print(User.objects.all())"
 
 ## 🌱 Seeds (exemple d'script)
-# Carregar usuaris
 python manage.py seed_users --users 25 --clear
