@@ -14,7 +14,7 @@ class CustomUser(AbstractUser):
 
 
 class Follow(models.Model):
-    # follower (A) segueix following (B)
+    # follower (A) segueix following (B) tots
     follower = models.ForeignKey(
         'CustomUser',
         related_name='following_set',
@@ -32,4 +32,3 @@ class Follow(models.Model):
 
     def __str__(self):
         return f'{self.follower} -> {self.following}'
-
