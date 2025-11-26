@@ -14,7 +14,7 @@ class CustomUser(AbstractUser):
 
 
 class Follow(models.Model):
-    # follower (A) segueix following (B) tots
+    # follower (A) segueix following (B)
     follower = models.ForeignKey(
         'CustomUser',
         related_name='following_set',
