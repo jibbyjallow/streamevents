@@ -1,22 +1,86 @@
+{% load static %}
 <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-    <div class="container-fluid">
-      <a class="navbar-brand" href="/">StreamEvents</a>
-      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
-        <span class="navbar-toggler-icon"></span>
-      </button>
-  
-      <div class="collapse navbar-collapse" id="navbarNav">
-        <ul class="navbar-nav ms-auto">
-          {% if user.is_authenticated %}
-            <li class="nav-item"><a class="nav-link" href="{% url 'users:profile' %}"><i class="fa fa-user"></i> Perfil</a></li>
-            <li class="nav-item"><a class="nav-link" href="{% url 'users:edit_profile' %}"><i class="fa fa-edit"></i> Editar</a></li>
-            <li class="nav-item"><a class="nav-link" href="{% url 'users:logout' %}"><i class="fa fa-sign-out-alt"></i> Sortir</a></li>
-          {% else %}
-            <li class="nav-item"><a class="nav-link" href="{% url 'users:login' %}">Inicia sessió</a></li>
-            <li class="nav-item"><a class="nav-link" href="{% url 'users:register' %}">Registra't</a></li>
-          {% endif %}
-        </ul>
-      </div>
+  <div class="container-fluid">
+    <a class="navbar-brand" href="{% url 'events:event_list' %}">StreamEvents</a>
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <div class="collapse navbar-collapse" id="navbarNav">
+      <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+
+        <!-- Llistat principal -->
+        <li class="nav-item">
+          <a class="nav-link" href="{% url 'events:event_list' %}">Tots els Esdeveniments</a>
+        </li>
+
+        <!-- Els meus -->
+        <li class="nav-item">
+          <a class="nav-link" href="{% url 'events:my_events' %}">Els meus Esdeveniments</a>
+        </li>
+
+        <!-- Crear -->
+        <li class="nav-item">
+          <a class="nav-link" href="{% url 'events:event_create' %}">Crear Esdeveniment</a>
+        </li>
+
+        <!-- Categories -->
+        <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown">
+            Categories
+          </a>
+          <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+            {% for code, name in EVENT_CATEGORIES %}
+              <li><a class="dropdown-item" href="{% url 'events:events_by_category' code %}">{{ name }}</a></li>
+            {% endfor %}
+          </ul>
+        </li>
+
+        <!-- 🎯 GESTIÓ: Crear / Editar / Eliminar -->
+        <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle" href="#" id="manageDropdown" role="button" data-bs-toggle="dropdown">
+            Gestió
+          </a>
+          <ul class="dropdown-menu" aria-labelledby="manageDropdown">
+
+            <!-- Crear -->
+            <li>
+              <a class="dropdown-item" href="{% url 'events:event_create' %}">
+                Crear Esdeveniment
+              </a>
+            </li>
+
+            <!-- Editar: demana ID -->
+            <li>
+              <a class="dropdown-item"
+                 onclick="var id = prompt('Introdueix l’ID de l’esdeveniment a editar:'); if(id) window.location.href='/events/' + id + '/edit/';">
+                Editar Esdeveniment
+              </a>
+            </li>
+
+            <!-- Eliminar: demana ID -->
+            <li>
+              <a class="dropdown-item text-danger"
+                 onclick="var id = prompt('Introdueix l’ID de l’esdeveniment a eliminar:'); if(id) window.location.href='/events/' + id + '/delete/';">
+                Eliminar Esdeveniment
+              </a>
+            </li>
+
+          </ul>
+        </li>
+
+      </ul>
+
+      <ul class="navbar-nav ms-auto">
+        {% if user.is_authenticated %}
+          <li class="nav-item"><a class="nav-link" href="{% url 'users:profile' %}">Perfil</a></li>
+          <li class="nav-item"><a class="nav-link" href="{% url 'users:edit_profile' %}">Editar</a></li>
+          <li class="nav-item"><a class="nav-link" href="{% url 'users:logout' %}">Sortir</a></li>
+        {% else %}
+          <li class="nav-item"><a class="nav-link" href="{% url 'users:login' %}">Inicia sessió</a></li>
+          <li class="nav-item"><a class="nav-link" href="{% url 'users:register' %}">Registra't</a></li>
+        {% endif %}
+      </ul>
     </div>
-  </nav>
-  
+  </div>
+</nav>

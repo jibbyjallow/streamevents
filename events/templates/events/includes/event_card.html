@@ -1,0 +1,23 @@
+{% load static %}
+<div class="card h-100 shadow-sm mb-4">
+    {% if event.thumbnail %}
+        <img src="{{ event.thumbnail.url }}" class="card-img-top" alt="{{ event.title }}">
+    {% else %}
+        <img src="{% static 'images/default_event.jpg' %}" class="card-img-top" alt="{{ event.title }}">
+    {% endif %}
+    <div class="card-body d-flex flex-column">
+        <h5 class="card-title">{{ event.title }}</h5>
+        <p class="card-text">
+            Categoria: {{ event.get_category_display }}<br>
+            Data: {{ event.scheduled_date|date:"d/m/Y H:i" }}<br>
+            Estat: {{ event.get_status_display }}
+        </p>
+        <div class="mt-auto">
+            <a href="{% url 'events:event_detail' event.pk %}" class="btn btn-primary btn-sm">Veure</a>
+            {% if request.user == event.creator %}
+                <a href="{% url 'events:event_update' event.pk %}" class="btn btn-secondary btn-sm">Editar</a>
+                <a href="{% url 'events:event_delete' event.pk %}" class="btn btn-danger btn-sm">Eliminar</a>
+            {% endif %}
+        </div>
+    </div>
+</div>

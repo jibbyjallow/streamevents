@@ -5,6 +5,5 @@ from .models import Event
 class EventAdmin(admin.ModelAdmin):
     list_display = ('title', 'creator', 'category', 'status', 'scheduled_date', 'is_featured')
     list_filter = ('category', 'status', 'is_featured')
-    search_fields = ('title', 'description', 'creator__username')
-    ordering = ('-scheduled_date',)
-    list_per_page = 20  # Mostra 20 esdeveniments per pàgina
+    search_fields = ('title', 'description', 'tags')
+    ordering = ('-is_featured', '-created_at')
