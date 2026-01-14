@@ -1,4 +1,5 @@
 from django.shortcuts import render
+from xat.forms import ChatMessageForm
 
 # Create your views here.
 from django.shortcuts import render, get_object_or_404, redirect
@@ -32,10 +33,16 @@ def event_list_view(request):
 # 5.2 Vista de detall d'esdeveniment
 # -----------------------------
 def event_detail_view(request, pk):
-    event = get_object_or_404(Event.objects.select_related('creator'), pk=pk)
+    event = get_object_or_404(Event, pk=pk)  # ❗ NO select_related amb MongoDB
     is_creator = request.user == event.creator
-    return render(request, 'events/event_detail.html', {'event': event, 'is_creator': is_creator})
 
+    context = {
+        'event': event,
+        'is_creator': is_creator,
+        'chat_form': ChatMessageForm(),  # ✅ OBLIGATORI PER AL XAT
+    }
+
+    return render(request, 'events/event_detail.html', context)
 
 
 # -----------------------------

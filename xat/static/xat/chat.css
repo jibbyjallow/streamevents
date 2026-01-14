@@ -1,0 +1,80 @@
+/* xat/static/xat/chat.css */
+.chat-container {
+    height: 600px;
+    display: flex;
+    flex-direction: column;
+    background-color: #fff;
+}
+
+.chat-header {
+    flex-shrink: 0;
+}
+
+.chat-messages {
+    flex: 1;
+    overflow-y: auto;
+    min-height: 300px;
+    max-height: 400px;
+    background-color: #f8f9fa;
+}
+
+.chat-form {
+    flex-shrink: 0;
+}
+
+.chat-message {
+    border-left: 3px solid #007bff;
+    transition: all 0.2s;
+}
+
+.chat-message:hover {
+    background-color: #e9ecef !important;
+}
+
+.chat-message.highlighted {
+    border-left-color: #ffc107;
+    background-color: #fff3cd !important;
+}
+
+.message-header {
+    font-size: 0.9rem;
+}
+
+.message-content {
+    margin-top: 5px;
+    font-size: 1rem;
+    word-wrap: break-word;
+}
+
+.message-actions {
+    margin-top: 5px;
+    opacity: 0;
+    transition: opacity 0.2s;
+}
+
+.chat-message:hover .message-actions {
+    opacity: 1;
+}
+
+.delete-message {
+    font-size: 0.8rem;
+    padding: 0.1rem 0.5rem;
+}
+
+/* Scrollbar personalitzada */
+.chat-messages::-webkit-scrollbar {
+    width: 6px;
+}
+
+.chat-messages::-webkit-scrollbar-track {
+    background: #f1f1f1;
+}
+
+.chat-messages::-webkit-scrollbar-thumb {
+    background: #888;
+    border-radius: 3px;
+}
+
+.chat-messages::-webkit-scrollbar-thumb:hover {
+    background: #555;
+}

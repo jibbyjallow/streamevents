@@ -18,6 +18,9 @@ urlpatterns = [
 
     # Rutes de l'app events
     path('events/', include('events.urls', namespace='events')),
+
+    # Rutes de l'app xat
+    path('chat/', include('xat.urls', namespace='chat')),
 ]
 
 # Servir fitxers MEDIA (avatars) durant desenvolupament

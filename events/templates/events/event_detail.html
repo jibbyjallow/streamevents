@@ -1,22 +1,32 @@
 {% extends 'base.html' %}
+{% load static %}
+
 {% block content %}
 <div class="row">
-  <div class="col-md-8">
+
+  <!-- COLUMNA ESQUERRA: EVENT -->
+  <div class="col-lg-8 col-md-12">
     {% if event.thumbnail %}
       <img src="{{ event.thumbnail.url }}" class="img-fluid mb-3" alt="{{ event.title }}">
     {% endif %}
+
     <h2>{{ event.title }}</h2>
     <p>{{ event.description|linebreaks }}</p>
+
     <p>
-      Categoria: {{ event.get_category_display }}<br>
-      Data: {{ event.scheduled_date|date:"d/m/Y H:i" }}<br>
-      Estat: {{ event.get_status_display }}<br>
-      Creador: {{ event.creator.username }}
+      <strong>Categoria:</strong> {{ event.get_category_display }}<br>
+      <strong>Data:</strong> {{ event.scheduled_date|date:"d/m/Y H:i" }}<br>
+      <strong>Estat:</strong> {{ event.get_status_display }}<br>
+      <strong>Creador:</strong> {{ event.creator.username }}
     </p>
 
     {% if event.stream_url %}
       <div class="ratio ratio-16x9 mb-3">
-        <iframe src="{{ event.get_stream_embed_url }}" title="{{ event.title }}" allowfullscreen></iframe>
+        <iframe
+          src="{{ event.get_stream_embed_url }}"
+          title="{{ event.title }}"
+          allowfullscreen>
+        </iframe>
       </div>
     {% endif %}
 
@@ -25,5 +35,11 @@
       <a href="{% url 'events:event_delete' event.pk %}" class="btn btn-danger">Eliminar</a>
     {% endif %}
   </div>
+
+  <!-- COLUMNA DRETA: XAT -->
+  <div class="col-lg-4 col-md-12 mt-4 mt-lg-0">
+    {% include 'xat/chat_box.html' %}  <!-- Corregit: 'xat/' no 'chat/includes/' -->
+  </div>
+
 </div>
 {% endblock %}
