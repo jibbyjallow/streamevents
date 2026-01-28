@@ -14,18 +14,45 @@ from .forms import EventCreationForm, EventUpdateForm, EventSearchForm
 # 5.1 Vista de llistat d'esdeveniments
 # -----------------------------
 def event_list_view(request):
-    events = Event.objects.all().order_by('-is_featured', '-id')
+    events = Event.objects.all()
 
-    # Paginació (12 per pàgina)
+    form = EventSearchForm(request.GET or None)
+
+    if form.is_valid():
+        search = form.cleaned_data.get('search')
+        category = form.cleaned_data.get('category')
+        status = form.cleaned_data.get('status')
+        date_from = form.cleaned_data.get('date_from')
+        date_to = form.cleaned_data.get('date_to')
+
+        if search:
+            events = events.filter(title__icontains=search)
+
+        if category:
+            events = events.filter(category=category)
+
+        if status:
+            events = events.filter(status=status)
+
+        if date_from:
+            events = events.filter(scheduled_date__date__gte=date_from)
+
+        if date_to:
+            events = events.filter(scheduled_date__date__lte=date_to)
+
+    events = events.order_by('-is_featured', '-id')
+
     paginator = Paginator(events, 12)
     page_number = request.GET.get('page')
     page_obj = paginator.get_page(page_number)
 
     context = {
         'events': page_obj,
-        'form': None  # pots eliminar filtres per veure tots
+        'form': form,
     }
+
     return render(request, 'events/event_list.html', context)
+
 
 
 

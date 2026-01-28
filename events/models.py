@@ -7,6 +7,9 @@ from django.urls import reverse
 from django.utils import timezone
 from datetime import timedelta
 import re
+# Django 3.2: JSONField pot ser aquí
+from django.db.models import JSONField
+
 
 User = get_user_model()
 
@@ -117,7 +120,13 @@ class Event(models.Model):
         verbose_name='URL del Streaming',
         help_text='URL del streaming o vídeo de demostració'
     )
+
+    # === Camps per Cerca Semàntica ===
+    embedding = models.JSONField(blank=True, null=True)  # llista de floats
+    embedding_model = models.CharField(max_length=200, blank=True, null=True)
+    embedding_updated_at = models.DateTimeField(blank=True, null=True)
     
+
     class Meta:
         ordering = ['-created_at']  # Més recent primer
         verbose_name = 'Esdeveniment'

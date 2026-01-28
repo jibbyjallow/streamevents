@@ -21,6 +21,9 @@ urlpatterns = [
 
     # Rutes de l'app xat
     path('chat/', include('xat.urls', namespace='chat')),
+
+    # Rutes de l'app semantic_search
+    path("", include("semantic_search.urls")),
 ]
 
 # Servir fitxers MEDIA (avatars) durant desenvolupament

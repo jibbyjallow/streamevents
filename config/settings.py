@@ -41,6 +41,7 @@ INSTALLED_APPS = [
     'users',
     'events',
     'xat',
+    "semantic_search",
 ]
 
 MIDDLEWARE = [

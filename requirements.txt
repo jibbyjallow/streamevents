@@ -8,3 +8,18 @@ python-dotenv==1.0.0
 pytz==2025.2
 setuptools==80.9.0
 sqlparse==0.2.4
+# Sentence Transformers
+sentence-transformers==2.2.2
+
+# Transformers compatible
+transformers==4.36.2
+
+# Huggingface hub compatible
+huggingface-hub==0.20.3
+
+# PyTorch (CPU o GPU, depèn del que necessitis)
+torch==2.1.0 --index-url https://download.pytorch.org/whl/cu118
+
+# Numpy compatible
+numpy==1.24.0
+
